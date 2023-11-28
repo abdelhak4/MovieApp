@@ -11,11 +11,11 @@ interface AppConainer {
     val movieRepository: MovieRepository
 }
 
-class DefaultAppContainer() : AppConainer {
+class DefaultAppContainer : AppConainer {
 
     private val BASE_URL = "https://api.themoviedb.org/3/"
 
-    private val intercepter = HttpLoggingInterceptor().apply {
+    private val interceptor = HttpLoggingInterceptor().apply {
         this.level = HttpLoggingInterceptor.Level.BODY
     }
     private val okHttpClient = OkHttpClient.Builder()
@@ -25,7 +25,7 @@ class DefaultAppContainer() : AppConainer {
                 .build()
             chain.proceed(request)
         }
-        .addInterceptor(intercepter)
+        .addInterceptor(interceptor)
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
