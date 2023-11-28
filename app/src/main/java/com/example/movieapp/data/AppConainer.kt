@@ -2,6 +2,7 @@ package com.example.movieapp.data
 
 import com.example.movieapp.remote.MovieApiService
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -14,6 +15,9 @@ class DefaultAppContainer() : AppConainer {
 
     private val BASE_URL = "https://api.themoviedb.org/3/"
 
+    private val intercepter = HttpLoggingInterceptor().apply {
+        this.level = HttpLoggingInterceptor.Level.BODY
+    }
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
@@ -21,9 +25,11 @@ class DefaultAppContainer() : AppConainer {
                 .build()
             chain.proceed(request)
         }
+        .addInterceptor(intercepter)
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
+
         .addConverterFactory(MoshiConverterFactory.create())
         .client(okHttpClient)
         .baseUrl(BASE_URL)

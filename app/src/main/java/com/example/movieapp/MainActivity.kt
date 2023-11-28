@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -36,6 +33,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.movieapp.model.MovieDetailDto
 import com.example.movieapp.model.MovieListDto
 import com.example.movieapp.ui.MovieViewModel
 import com.example.movieapp.ui.theme.MovieAppTheme
@@ -56,7 +54,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     val movieViewModel: MovieViewModel = viewModel(factory = MovieViewModel.Factory)
-                    HomePage(movies = movieViewModel.movieUiState)
+//                    HomePage(movies = movieViewModel.movieUiState, onClick = {})
+                    MovieAppScreen(movieViewModel)
                 }
             }
         }
@@ -64,28 +63,31 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MovieAppScreen() {
+fun MovieAppScreen(movieViewModel: MovieViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = MovieRoutes.Home.name) {
         composable(MovieRoutes.Home.name) {
-
+            HomePage(movies = movieViewModel.movieUiState, onClick = {id ->
+                movieViewModel.getMovieDetails(id)
+                navController.navigate(MovieRoutes.Details.name)
+            })
         }
         composable(MovieRoutes.Details.name) {
-
+            DetailScreen(movieViewModel.movieDetailState)
         }
     }
 }
 
 @Composable
-fun HomePage(movies: MovieListDto) {
+fun HomePage(movies: MovieListDto, onClick: (Int) -> Unit) {
     LazyColumn {
         items(movies.results ?: listOf()) { data ->
             Card(
                 modifier = Modifier
                     .requiredHeight(200.dp)
                     .padding(12.dp)
-
+                    .clickable { onClick(data.id) }
             ) {
                 Row(
                     modifier = Modifier
@@ -117,9 +119,10 @@ fun HomePage(movies: MovieListDto) {
 }
 
 //#2E1371, #130B2B
-@Preview(showSystemUi = true)
+//@Preview(showSystemUi = true)
 @Composable
-fun DetailScreen() {
+fun DetailScreen(movieDetail: MovieDetailDto) {
+    println(movieDetail)
     Surface(
         color = Color(0xff2E1371)
     ) {
@@ -135,11 +138,11 @@ fun DetailScreen() {
                 contentScale = ContentScale.FillWidth
             )
             Spacer(modifier = Modifier.height(12.dp))
-            Text(text = "the title is here")
+            Text(text = movieDetail.original_title)
             Spacer(modifier = Modifier.height(12.dp))
-            Text(text = "released 1999")
+            Text(text = movieDetail.release_date)
             Spacer(modifier = Modifier.height(12.dp))
-            Text(text = "description")
+            Text(text = movieDetail.overview)
         }
     }
 }

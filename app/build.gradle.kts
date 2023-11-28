@@ -74,6 +74,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")

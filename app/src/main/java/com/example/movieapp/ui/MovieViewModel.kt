@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.movieapp.MovieApp
 import com.example.movieapp.data.MovieRepository
+import com.example.movieapp.model.MovieDetailDto
 import com.example.movieapp.model.MovieListDto
 import kotlinx.coroutines.launch
 
@@ -25,12 +26,26 @@ class MovieViewModel(
     var movieUiState by mutableStateOf(MovieListDto())
         private set
 
+    var movieDetailState by mutableStateOf(MovieDetailDto())
+        private set
     private fun loadMovieData() {
         viewModelScope.launch {
             try {
             movieUiState = movieRepository.getMovies()
             } catch (e: Exception) {
                 println( e.message)
+            }
+        }
+    }
+
+    fun getMovieDetails(id: Int) {
+        viewModelScope.launch {
+            try {
+                movieDetailState = movieRepository.getMovieDetails(id)
+                println(movieDetailState)
+            } catch (e: Exception)
+            {
+                e.printStackTrace()
             }
         }
     }
