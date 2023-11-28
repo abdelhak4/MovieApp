@@ -1,5 +1,6 @@
-package com.example.movieapp.data.remote
+package com.example.movieapp.remote
 
+import com.example.movieapp.model.MovieListDto
 import retrofit2.http.GET
 
 interface MovieApiService {
