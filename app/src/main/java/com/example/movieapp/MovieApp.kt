@@ -1,7 +1,14 @@
 package com.example.movieapp
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.example.movieapp.data.AppConainer
+import com.example.movieapp.data.DefaultAppContainer
 
 //@HiltAndroidApp
-class MovieApp: Application()
+class MovieApp : Application() {
+    lateinit var container: AppConainer
+    override fun onCreate() {
+        super.onCreate()
+        container = DefaultAppContainer()
+    }
+}
