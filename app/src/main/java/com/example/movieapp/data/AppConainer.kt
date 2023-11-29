@@ -1,5 +1,6 @@
 package com.example.movieapp.data
 
+import com.example.movieapp.BuildConfig
 import com.example.movieapp.remote.MovieApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,10 +19,12 @@ class DefaultAppContainer : AppConainer {
     private val interceptor = HttpLoggingInterceptor().apply {
         this.level = HttpLoggingInterceptor.Level.BODY
     }
+
+    val apiKey = BuildConfig.API_KEY
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNDM2ZTg5ZDA2OGMxNTQxYmZjODJiNDE2M2I3OGUwYiIsInN1YiI6IjY1NjQ2ZDk0MzY3OWExMDk3NjQ4NWViOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-XAtKwaVC8Nt5Zcz8MbR88t1oJYYqnQLAnRxc4Au4Jg")
+                .addHeader("Authorization", "Bearer $apiKey")
                 .build()
             chain.proceed(request)
         }
