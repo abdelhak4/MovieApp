@@ -13,11 +13,10 @@ First, obtain your API key from [TMDB](https://developers.themoviedb.org/3/getti
 
 ---
 # Tech Stack
-
-- - [Jetpack Components](https://developer.android.com/jetpack)
+- [Architicture](https://developer.android.com/topic/architecture#recommended-app-arch) - I used the recommanded Architicture 
+- [Jetpack Components](https://developer.android.com/jetpack)
      - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Designed to store and manage UI-related data in a lifecycle conscious way. The ViewModel class allows data to survive configuration changes such as screen rotations.
-- [Moshi]([https://github.com/square/gson](https://github.com/square/moshi/)) - Moshi is a modern JSON library for Android, Java and Kotlin. It makes it easy to parse JSON into Java and Kotlin classes
+- [Moshi](https://github.com/square/moshi/) - Moshi is a modern JSON library for Android, Java, and Kotlin. It makes it easy to parse JSON into Java and Kotlin classes
 - [OkHttp Logging Interceptor](https://github.com/square/okhttp/blob/master/okhttp-logging-interceptor/README.md) - Logs HTTP request and response data.
 - [Coil](https://github.com/coil-kt/coil) - An image loading library for Android backed by Kotlin Coroutines.
-
-    
+- [Retrofit](https://github.com/square/retrofit) - A type-safe HTTP client for Android and the JVM
