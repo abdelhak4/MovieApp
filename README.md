@@ -1,8 +1,8 @@
 # MovieApp
 An android app built using [Jetpack Compose](https://developer.android.com/jetpack/compose) that consumes [TMDB API](https://developers.themoviedb.org/3/getting-started/introduction) to display the current Movies
 
-![MovieAppDetailScreen](https://github.com/abdelhak4/MovieApp/assets/53873640/3b624237-c01d-4894-8190-0be6b5a4b07d)
-![movieAppHomeScreen](https://github.com/abdelhak4/MovieApp/assets/53873640/0be13681-ba27-4a98-bc95-a4ee681042dc)
+<img src="https://github.com/abdelhak4/MovieApp/assets/53873640/0be13681-ba27-4a98-bc95-a4ee681042dc" width="500">
+<img src="https://github.com/abdelhak4/MovieApp/assets/53873640/3b624237-c01d-4894-8190-0be6b5a4b07d" width="500">
 
 
 ---
